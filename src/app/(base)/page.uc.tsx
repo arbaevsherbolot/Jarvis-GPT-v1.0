@@ -13,7 +13,7 @@ export default function HomeClient() {
     null
   );
 
-  const [chunks, setChunks] = useState<BlobPart[]>([]);
+  let chunks: BlobPart[] = [];
 
   useEffect(() => {
     if (typeof window !== "undefined" && navigator.mediaDevices) {
@@ -23,12 +23,12 @@ export default function HomeClient() {
           const newMediaRecorder = new MediaRecorder(stream);
 
           newMediaRecorder.onstart = () => {
-            setChunks([]);
+            chunks = [];
           };
 
           newMediaRecorder.ondataavailable = (e) => {
             if (e.data.size > 0) {
-              setChunks((prevChunks) => [...prevChunks, e.data]);
+              chunks.push(e.data);
             }
           };
 
@@ -56,6 +56,7 @@ export default function HomeClient() {
 
                   if (response.status !== 200 || !response.ok) {
                     errorNotification("Something went wrong");
+                    console.log(await response.json());
                   }
 
                   const data = await response.json();
@@ -80,7 +81,7 @@ export default function HomeClient() {
           errorNotification("Something went wrong");
         });
     }
-  }, [chunks]);
+  }, []);
 
   const startRecording = () => {
     if (mediaRecorder) {
@@ -90,7 +91,7 @@ export default function HomeClient() {
   };
 
   const stopRecording = () => {
-    if (mediaRecorder) {
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
       mediaRecorder.stop();
       setRecording(false);
     }
@@ -114,7 +115,7 @@ export default function HomeClient() {
         <div className={styles.content}>
           {transcript && (
             <>
-              <h2 className={styles.label}>Youre transcript:</h2>
+              <h2 className={styles.label}>You're transcript:</h2>
               <span className={styles.transcript}>{transcript}</span>
             </>
           )}
