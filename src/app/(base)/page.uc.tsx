@@ -115,7 +115,7 @@ export default function HomeClient() {
         <div className={styles.content}>
           {transcript && (
             <>
-              <h2 className={styles.label}>You're transcript:</h2>
+              <h2 className={styles.label}>Youre transcript:</h2>
               <span className={styles.transcript}>{transcript}</span>
             </>
           )}
