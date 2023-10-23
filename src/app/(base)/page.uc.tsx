@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { errorNotification } from "@/lib/utils/notification";
+import {
+  errorNotification,
+  successNotification,
+} from "@/lib/utils/notification";
 import styles from "@/styles/Home.module.scss";
 
 export default function HomeClient() {
@@ -99,6 +102,7 @@ export default function HomeClient() {
   };
 
   const copyText = (text: string) => {
+    successNotification("Text copied to clipboard");
     navigator.clipboard.writeText(text);
     setCopied(true);
 
@@ -112,14 +116,15 @@ export default function HomeClient() {
       <div className={styles.page_wrapper}>
         <button
           className={
-            recording ? `${styles.button} ${styles.stop}` : styles.button
+            loading
+              ? `${styles.button} ${styles.load}`
+              : recording
+              ? `${styles.button} ${styles.stop}`
+              : styles.button
           }
+          disabled={loading}
           onClick={recording ? stopRecording : startRecording}>
-          {!loading
-            ? recording
-              ? "Stop Recording"
-              : "Start Recording"
-            : "Loading..."}
+          {!loading ? (recording ? "STOP" : "RECORD") : "Loading..."}
         </button>
 
         <div className={styles.content}>
@@ -134,7 +139,10 @@ export default function HomeClient() {
             <>
               <h2 className={styles.label}>AI reply:</h2>
 
-              <textarea className={styles.ai_reply}>{aiReply}</textarea>
+              <textarea
+                className={styles.ai_reply}
+                value={aiReply}
+                readOnly={true}></textarea>
 
               <button
                 className={`${styles.button} ${styles.copy}`}
