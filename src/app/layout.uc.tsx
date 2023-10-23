@@ -1,5 +1,6 @@
 "use client";
 
+import Footer from "@/components/layout/Footer";
 import { Toaster } from "sonner";
 
 interface Props {
@@ -17,6 +18,8 @@ export default function RootLayoutClient({ children }: Props) {
         }}>
         {children}
         <Toaster theme="light" />
+
+        <Footer />
       </main>
     </>
   );
