@@ -9,6 +9,7 @@ export default function HomeClient() {
   const [aiReply, setAiReply] = useState<string | null>(null);
   const [recording, setRecording] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
     null
   );
@@ -97,6 +98,15 @@ export default function HomeClient() {
     }
   };
 
+  const copyText = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 5000);
+  };
+
   return (
     <>
       <div className={styles.page_wrapper}>
@@ -123,7 +133,14 @@ export default function HomeClient() {
           {aiReply && (
             <>
               <h2 className={styles.label}>AI reply:</h2>
-              <span className={styles.ai_reply}>{aiReply}</span>
+
+              <textarea className={styles.ai_reply}>{aiReply}</textarea>
+
+              <button
+                className={`${styles.button} ${styles.copy}`}
+                onClick={() => copyText(aiReply)}>
+                {copied ? "Copied" : "Copy Text"}
+              </button>
             </>
           )}
         </div>
