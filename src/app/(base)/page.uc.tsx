@@ -1,158 +1,69 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import {
-  errorNotification,
-  successNotification,
-} from "@/lib/utils/notification";
+import Link from "next/link";
+import React, { useState } from "react";
+import Modal from "@/components/ui/Modal";
+import { ArrowSvg, PlusSvg } from "@/assets/svg";
 import styles from "@/styles/Home.module.scss";
+import NewChat from "@/components/ui/NewChat";
 
-export default function HomeClient() {
-  const [transcript, setTranscript] = useState<string | null>(null);
-  const [aiReply, setAiReply] = useState<string | null>(null);
-  const [recording, setRecording] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [copied, setCopied] = useState<boolean>(false);
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
-    null
-  );
+type Chat = {
+  id: number;
+  userId: number;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
-  let chunks: BlobPart[] = [];
+interface Props {
+  chats: Chat[];
+  session: string;
+}
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && navigator.mediaDevices) {
-      navigator.mediaDevices
-        .getUserMedia({ audio: true })
-        .then((stream) => {
-          const newMediaRecorder = new MediaRecorder(stream);
+export default function HomeClient({ chats, session }: Props) {
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
-          newMediaRecorder.onstart = () => {
-            chunks = [];
-          };
-
-          newMediaRecorder.ondataavailable = (e) => {
-            if (e.data.size > 0) {
-              chunks.push(e.data);
-            }
-          };
-
-          newMediaRecorder.onstop = async () => {
-            const audioBlob = new Blob(chunks, { type: "audio/webm" });
-
-            try {
-              const reader = new FileReader();
-              reader.readAsDataURL(audioBlob);
-              reader.onloadend = async function () {
-                if (typeof reader.result === "string") {
-                  setLoading(true);
-
-                  const base64Audio = reader.result.split(",")[1];
-                  const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/api/speech-to-text`,
-                    {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({ audio: base64Audio }),
-                    }
-                  );
-
-                  if (response.status !== 200 || !response.ok) {
-                    errorNotification("Something went wrong");
-                    console.log(await response.json());
-                  }
-
-                  const data = await response.json();
-                  setTranscript(data.transcript);
-                  setAiReply(data.aiReply);
-                  setLoading(false);
-                }
-              };
-            } catch (e) {
-              console.error(e);
-              //@ts-ignore
-              errorNotification(`${e.message}`);
-            } finally {
-              setLoading(false);
-            }
-          };
-
-          setMediaRecorder(newMediaRecorder);
-        })
-        .catch((e) => {
-          console.error("Error accessing microphone:", e);
-          errorNotification("Something went wrong");
-        });
-    }
-  }, []);
-
-  const startRecording = () => {
-    if (mediaRecorder) {
-      mediaRecorder.start();
-      setRecording(true);
-    }
-  };
-
-  const stopRecording = () => {
-    if (mediaRecorder && mediaRecorder.state !== "inactive") {
-      mediaRecorder.stop();
-      setRecording(false);
-    }
-  };
-
-  const copyText = (text: string) => {
-    successNotification("Text copied to clipboard");
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-
-    setTimeout(() => {
-      setCopied(false);
-    }, 5000);
+  const handleOpenModal = () => {
+    setOpenModal(!openModal);
   };
 
   return (
     <>
       <div className={styles.page_wrapper}>
-        <button
-          className={
-            loading
-              ? `${styles.button} ${styles.load}`
-              : recording
-              ? `${styles.button} ${styles.stop}`
-              : styles.button
-          }
-          disabled={loading}
-          onClick={recording ? stopRecording : startRecording}>
-          {!loading ? (recording ? "STOP" : "RECORD") : "Loading..."}
-        </button>
+        <h4 className={styles.title}>Chats:</h4>
 
-        <div className={styles.content}>
-          {transcript && (
-            <>
-              <h2 className={styles.label}>Youre transcript:</h2>
-              <span className={styles.transcript}>{transcript}</span>
-            </>
-          )}
+        <div className={styles.chats}>
+          {chats.map((chat, idx) => (
+            <Link key={idx} className={styles.chat} href={`/${chat.id}`}>
+              <h2 className={styles.title}>{chat.title}</h2>
 
-          {aiReply && (
-            <>
-              <h2 className={styles.label}>AI reply:</h2>
+              <ArrowSvg
+                style={{
+                  fill: "#fff",
+                  fontSize: "1.5rem",
+                  transform: "rotate(-90deg)",
+                }}
+              />
+            </Link>
+          ))}
 
-              <textarea
-                className={styles.ai_reply}
-                value={aiReply}
-                readOnly={true}></textarea>
+          <div className={styles.chat} onClick={handleOpenModal}>
+            <h2 className={styles.title}>New Chat</h2>
 
-              <button
-                className={`${styles.button} ${styles.copy}`}
-                onClick={() => copyText(aiReply)}>
-                {copied ? "Copied" : "Copy Text"}
-              </button>
-            </>
-          )}
+            <PlusSvg
+              style={{
+                fill: "#fff",
+                fontSize: "1.5rem",
+                transform: "rotate(-90deg)",
+              }}
+            />
+          </div>
         </div>
       </div>
+
+      <Modal open={openModal} title="New Chat">
+        <NewChat session={session} />
+      </Modal>
     </>
   );
 }

@@ -1,0 +1,117 @@
+.button,
+.button_load {
+  width: 100%;
+  min-width: 150px;
+
+  padding: 0.85rem;
+
+  background: #5340ff;
+  border: 0;
+  border-radius: 0.625rem;
+
+  cursor: pointer;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+
+  transition: 0.25s;
+
+  &:hover {
+    background: #513ef7;
+  }
+
+  &:active {
+    background: #4d3ce8;
+  }
+
+  &.disabled {
+    background: #9b90ffbb;
+
+    cursor: not-allowed;
+
+    &:hover,
+    &:active {
+      background: #9b90ffbb;
+    }
+  }
+
+  @media (max-width: 985px) {
+    cursor: default;
+  }
+
+  .load {
+    font-size: 1rem;
+
+    animation: rotateAnimation 0.9s infinite linear;
+
+    @keyframes rotateAnimation {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  &.delete {
+    background: rgb(255, 39, 39);
+  }
+
+  &.black {
+    background: rgb(20, 20, 20);
+  }
+
+  &.edit {
+    min-width: 125px;
+    max-width: 120px;
+
+    padding: 0.25rem;
+
+    gap: 0.45rem;
+
+    background: transparent;
+    border: 1px solid #dbdbde;
+    border-radius: 0.425rem;
+
+    font-size: 0.755rem;
+    color: rgb(55, 53, 47);
+
+    .load {
+      font-size: 0.8rem;
+    }
+
+    &:hover {
+      background: #f6f7f89a;
+    }
+
+    &:active {
+      background: #ecedee;
+    }
+
+    &.active {
+      background: #f6f7f8;
+    }
+
+    @media (max-width: 535px) {
+      font-size: 0.715rem;
+    }
+  }
+}
+
+.button_load {
+  background: #9b90ffbb;
+
+  cursor: not-allowed;
+
+  &:hover,
+  &:active {
+    background: #9b90ffbb;
+  }
+}
