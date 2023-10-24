@@ -1,4 +1,4 @@
-import { useUserSession } from "@/hooks/useUserSession";
+import { useUserSession } from "./useUserSession";
 
 type UserRole = "USER" | "ADMIN" | "SUPERADMIN";
 
