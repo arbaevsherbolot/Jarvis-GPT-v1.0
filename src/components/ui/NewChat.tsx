@@ -9,7 +9,7 @@ import {
   successNotification,
 } from "@/lib/utils/notification";
 import Button from "./Button";
-import styles from "@/styles/Form.module.scss";
+import styles from "@/styles/NewChat.module.scss";
 
 type FormData = {
   title: string;
@@ -25,6 +25,7 @@ export default function NewChat({ session }: props) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isValid },
   } = useForm<FormData>();
 
@@ -34,7 +35,7 @@ export default function NewChat({ session }: props) {
     setLoading(true);
 
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/chat`,
         { ...formData },
         {
@@ -45,12 +46,14 @@ export default function NewChat({ session }: props) {
         }
       );
 
-      if (response.data) {
+      if (data) {
         router.refresh();
+        setValue('title', '')
         successNotification("New Chat created successfully");
       }
     } catch (e) {
-      errorNotification("Something went wrong");
+      //@ts-ignore
+      errorNotification(e.response.data.message);
       console.error(e);
     } finally {
       setLoading(false);
