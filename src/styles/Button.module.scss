@@ -71,30 +71,22 @@
   }
 
   &.edit {
-    min-width: 125px;
-    max-width: 120px;
-
-    padding: 0.25rem;
+    padding: 0.65rem;
 
     gap: 0.45rem;
 
-    background: transparent;
-    border: 1px solid #dbdbde;
+    background: #fff;
     border-radius: 0.425rem;
 
     font-size: 0.755rem;
     color: rgb(55, 53, 47);
 
-    .load {
-      font-size: 0.8rem;
-    }
-
     &:hover {
-      background: #f6f7f89a;
+      background: #eef0f2;
     }
 
     &:active {
-      background: #ecedee;
+      background: #e8e9ea;
     }
 
     &.active {
@@ -103,6 +95,23 @@
 
     @media (max-width: 535px) {
       font-size: 0.715rem;
+    }
+
+    .load {
+      font-size: 0.8rem;
+    }
+
+    &.disabled {
+      background: #f6f6f6;
+
+      cursor: not-allowed;
+
+      color: rgba(55, 53, 47, 0.403);
+
+      &:hover,
+      &:active {
+        background: #f6f6f6;
+      }
     }
   }
 }

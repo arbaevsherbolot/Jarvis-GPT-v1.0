@@ -37,11 +37,17 @@ export default async function Chat({ params }: Props) {
   );
 
   if (chatResponse.status !== 200 || !chatResponse.ok) {
-    return null;
+    return <ChatClient id="0" />;
   }
 
   const chatResponseData = await chatResponse.json();
   const messagesResponseData = await messagesResponse.json();
 
-  return <ChatClient id={chatResponseData.id} session={data.session} messages={messagesResponseData} />;
+  return (
+    <ChatClient
+      id={chatResponseData.id}
+      session={data.session}
+      messages={messagesResponseData}
+    />
+  );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   errorNotification,
   successNotification,
@@ -19,12 +20,18 @@ type Message = {
 };
 
 interface Props {
-  id: string;
-  session: string;
-  messages: Message[];
+  id?: string;
+  session?: string;
+  messages?: Message[];
 }
 
 export default function ChatClient({ id, session, messages }: Props) {
+  const router = useRouter();
+
+  if (!id || !session) {
+    router.push("/404/message=Chat not found");
+  }
+
   const [transcript, setTranscript] = useState<string | null>(null);
   const [aiReply, setAiReply] = useState<string | null>(null);
   const [audioSource, setAudioSource] = useState<string | null>(null);

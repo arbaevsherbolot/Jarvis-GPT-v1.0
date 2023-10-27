@@ -69,14 +69,7 @@ export default function Button({
               ? `${styles.button_load} ${styles[style]}`
               : styles.button_load
           }>
-          {style === "edit" ? (
-            <LoadSvg
-              className={styles.load}
-              style={{ fill: "rgb(55, 53, 47)" }}
-            />
-          ) : (
-            <LoadSvg className={styles.load} />
-          )}
+          <LoadSvg className={styles.load} />
         </button>
       )}
     </>

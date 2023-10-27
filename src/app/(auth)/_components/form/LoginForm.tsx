@@ -51,8 +51,7 @@ export default function LoginForm() {
 
       if (!response?.error) {
         successNotification("Successful login");
-        // router.push(`/redirect?to=${next}`);
-        router.push("/");
+        router.push(`/redirect?to=${next}`);
       } else {
         errorNotification(response?.error.replace("Error: ", ""));
       }
@@ -76,11 +75,11 @@ export default function LoginForm() {
     <>
       <div className={styles.form_wrapper}>
         <form className={styles.form} onSubmit={handleSubmit(handleSubmitForm)}>
-          <div className={styles.title}>Log In</div>
+          <h2 className={styles.title}>Voice App</h2>
 
           <div className={styles.inputs_container}>
             <div className={styles.input_container}>
-              <span className={styles.label}>Email or Name</span>
+              {/* <span className={styles.label}>Email or Name</span> */}
 
               <input
                 type="text"
@@ -88,7 +87,7 @@ export default function LoginForm() {
                 className={
                   loading ? `${styles.input} ${styles.load}` : styles.input
                 }
-                placeholder="sherbolot@wedevx.co"
+                placeholder="email or name"
                 onFocus={handleShowInput}
                 {...register("emailOrName", {
                   required: "Email or Name required",
@@ -110,7 +109,7 @@ export default function LoginForm() {
             <div
               className={styles.input_container}
               style={!showInput ? { display: "none" } : { display: "flex" }}>
-              <span className={styles.label}>Password</span>
+              {/* <span className={styles.label}>Password</span> */}
 
               <input
                 type="password"
@@ -121,7 +120,7 @@ export default function LoginForm() {
                     ? `${styles.input} ${styles.load} ${styles.password}`
                     : `${styles.input} ${styles.password}`
                 }
-                placeholder="123456"
+                placeholder="password"
                 {...register("password", {
                   required: "Password required",
                   minLength: {
@@ -140,14 +139,16 @@ export default function LoginForm() {
               )}
             </div>
 
-            <Button type="submit" load={loading} disabled={!isValid}>
+            <Button
+              type="submit"
+              load={loading}
+              style="edit"
+              disabled={!isValid}>
               Log In
             </Button>
           </div>
 
-          <div className={styles.info}>
-            Only individuals with access are allowed to log in
-          </div>
+          {/* <div className={styles.info}></div> */}
         </form>
       </div>
     </>
