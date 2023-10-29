@@ -78,7 +78,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (!isAuth && pathname !== '/login') {
+  if (!isAuth && pathname !== "/login") {
     const redirectUrl = new URL(
       pathname !== "/" ? `/login?next=${pathname}` : "/login",
       url

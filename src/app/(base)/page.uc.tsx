@@ -7,10 +7,26 @@ import { ArrowSvg, PlusSvg } from "@/assets/svg";
 import styles from "@/styles/Home.module.scss";
 import NewChat from "@/components/ui/NewChat";
 
+type Languages = "EN" | "RU";
+
+type Message = {
+  id: number;
+  userId: number;
+  chatId: number;
+  text: string;
+  ai?: boolean;
+  audioSource?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 type Chat = {
   id: number;
   userId: number;
   title: string;
+  mesages: Message[];
+  language: Languages;
+  isActive: boolean;
   createdAt: string;
   updatedAt: string;
 };
@@ -34,8 +50,9 @@ export default function HomeClient({ chats, session }: Props) {
 
         <div className={styles.chats}>
           {chats.map((chat, idx) => (
-            <Link key={idx} className={styles.chat} href={`/${chat.id}`}>
+            <Link key={idx} className={styles.chat} href={`/chat/${chat.id}`}>
               <h2 className={styles.title}>{chat.title}</h2>
+              <span className={styles.lang}>{chat.language}</span>
 
               <ArrowSvg
                 style={{

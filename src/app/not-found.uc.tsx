@@ -1,12 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ErrorSvg } from "@/assets/svg";
 import styles from "@/styles/Redirect.module.scss";
 
 export default function RootNotFoundClient() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const message = searchParams.get("message");
 
   const [seconds, setSeconds] = useState<number>(15);
 
@@ -37,7 +39,7 @@ export default function RootNotFoundClient() {
           />
 
           <h2 className={styles.title} style={{ color: "hsl(360, 100%, 45%)" }}>
-            Page not found
+            {message ? message : "Page not found"}
           </h2>
         </div>
 

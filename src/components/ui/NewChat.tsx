@@ -11,8 +11,11 @@ import {
 import Button from "./Button";
 import styles from "@/styles/NewChat.module.scss";
 
+type Languages = "EN" | "RU" | "";
+
 type FormData = {
   title: string;
+  language: Languages;
 };
 
 interface props {
@@ -48,7 +51,8 @@ export default function NewChat({ session }: props) {
 
       if (data) {
         router.refresh();
-        setValue('title', '')
+        setValue("title", "");
+        setValue("language", "");
         successNotification("New Chat created successfully");
       }
     } catch (e) {
@@ -106,6 +110,17 @@ export default function NewChat({ session }: props) {
                 <span className={styles.error}>{errors.title.message}</span>
               )}
             </div>
+
+            <select
+              disabled={loading}
+              className={styles.select}
+              {...register("language", {
+                required: "Language is required",
+              })}>
+              <option value="">Select Language</option>
+              <option value="EN">English</option>
+              <option value="RU">Russian</option>
+            </select>
 
             <Button type="submit" load={loading} disabled={!isValid}>
               Create

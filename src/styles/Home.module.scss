@@ -12,6 +12,32 @@
   flex-direction: column;
   gap: 1.25rem;
 
+  .link {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+
+    padding: 0.55rem 0.35rem;
+
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+
+    border: 1px solid transparent;
+    border-radius: 0.875rem;
+
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+
+    transition: 0.25s;
+
+    &:hover {
+      border-color: #ffffff0a;
+      background: #ffffff0a;
+    }
+  }
+
   .title {
     margin-right: auto;
 
@@ -186,6 +212,12 @@
         font-size: 1rem;
         font-weight: 500;
         color: #fff;
+      }
+
+      .lang {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #ffffff52;
       }
     }
   }

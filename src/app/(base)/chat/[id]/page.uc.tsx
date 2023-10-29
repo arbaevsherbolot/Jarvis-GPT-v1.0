@@ -2,11 +2,15 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   errorNotification,
   successNotification,
 } from "@/lib/utils/notification";
+import { ArrowSvg } from "@/assets/svg";
 import styles from "@/styles/Home.module.scss";
+
+type Languages = "EN" | "RU";
 
 type Message = {
   id: number;
@@ -19,17 +23,28 @@ type Message = {
   updatedAt: Date;
 };
 
+type Chat = {
+  id: number;
+  userId: number;
+  title: string;
+  mesages: Message[];
+  language: Languages;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
 interface Props {
-  id?: string;
+  chat?: Chat;
   session?: string;
   messages?: Message[];
 }
 
-export default function ChatClient({ id, session, messages }: Props) {
+export default function ChatClient({ chat, session, messages }: Props) {
   const router = useRouter();
 
-  if (!id || !session) {
-    router.push("/404/message=Chat not found");
+  if (!chat || !session) {
+    router.push("/404?message=Chat not found");
   }
 
   const [transcript, setTranscript] = useState<string | null>(null);
@@ -76,7 +91,7 @@ export default function ChatClient({ id, session, messages }: Props) {
 
                   const base64Audio = reader.result.split(",")[1];
                   const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/api/speech-to-text/${id}`,
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/speech-to-text/${chat?.id}`,
                     {
                       method: "POST",
                       headers: {
@@ -170,6 +185,17 @@ export default function ChatClient({ id, session, messages }: Props) {
   return (
     <>
       <div className={styles.page_wrapper}>
+        <Link className={styles.link} href="/">
+          <ArrowSvg
+            style={{
+              fill: "#fff",
+              fontSize: "1.5rem",
+              transform: "rotate(90deg)",
+            }}
+          />
+          All Chats
+        </Link>
+
         <button
           className={
             loading
