@@ -75,7 +75,7 @@ export default function LoginForm() {
     <>
       <div className={styles.form_wrapper}>
         <form className={styles.form} onSubmit={handleSubmit(handleSubmitForm)}>
-          <h2 className={styles.title}>Voice App</h2>
+          <h2 className={styles.title}>Welcome back Sir!</h2>
 
           <div className={styles.inputs_container}>
             <div className={styles.input_container}>
