@@ -86,6 +86,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  if (isAuth && pathname === "/") {
+    const redirectUrl = new URL("/chat", url);
+    return NextResponse.redirect(redirectUrl);
+  }
+
   return response;
 }
 

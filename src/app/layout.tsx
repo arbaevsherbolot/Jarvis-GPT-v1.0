@@ -3,13 +3,13 @@ import { Inter } from "next/font/google";
 import RootLayoutClient from "./layout.uc";
 import "@/styles/global.scss";
 
-interface Props {
-  children: React.ReactNode;
-}
-
 export const metadata: Metadata = {
   title: "Voice App",
 };
+
+interface Props {
+  children: React.ReactNode;
+}
 
 const font = Inter({ subsets: ["latin"] });
 

@@ -19,7 +19,7 @@ export default function RootLayoutClient({ children }: Props) {
         {children}
         <Toaster theme="light" />
 
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </>
   );

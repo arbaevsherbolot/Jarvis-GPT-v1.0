@@ -2,13 +2,43 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import {
   errorNotification,
   successNotification,
 } from "@/lib/utils/notification";
-import { ArrowSvg } from "@/assets/svg";
-import styles from "@/styles/Home.module.scss";
+import { formatDate } from "@/lib/utils/format-date";
+import Logo from "@/components/ui/Logo";
+import {
+  CopySvg,
+  LoadSvg,
+  MickroPhoneOffSvg,
+  MickroPhoneSvg,
+  PlaySvg,
+  StopSvg,
+} from "@/assets/svg";
+import styles from "@/styles/Chat.module.scss";
+
+type UserRole = "USER" | "ADMIN" | "SUPERADMIN";
+
+type User = {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  isVerified: boolean;
+  email: string;
+  password: string;
+  resetPasswordSecret?: string | null;
+  role: UserRole;
+  requests: number;
+  lastRequest?: Date | null;
+  firstName: string | null;
+  lastName: string | null;
+  bio?: string | null;
+  photo?: string | null;
+  phone?: string | null;
+  refreshToken?: string | null;
+};
 
 type Languages = "EN" | "RU";
 
@@ -38,14 +68,17 @@ interface Props {
   chat?: Chat;
   session?: string;
   messages?: Message[];
+  user?: User;
 }
 
-export default function ChatClient({ chat, session, messages }: Props) {
+export default function ChatClient({ chat, session, messages, user }: Props) {
   const router = useRouter();
 
-  if (!chat || !session) {
-    router.push("/404?message=Chat not found");
-  }
+  useEffect(() => {
+    if (!chat || !session) {
+      router.push("/404?message=Chat not found");
+    } else window.document.title = chat.title;
+  }, [router, session, chat]);
 
   const [transcript, setTranscript] = useState<string | null>(null);
   const [aiReply, setAiReply] = useState<string | null>(null);
@@ -129,6 +162,7 @@ export default function ChatClient({ chat, session, messages }: Props) {
         .catch((e) => {
           console.error("Error accessing microphone:", e);
           errorNotification("Something went wrong");
+          setLoading(false);
         });
     }
 
@@ -185,16 +219,15 @@ export default function ChatClient({ chat, session, messages }: Props) {
   return (
     <>
       <div className={styles.page_wrapper}>
-        <Link className={styles.link} href="/">
-          <ArrowSvg
-            style={{
-              fill: "#fff",
-              fontSize: "1.5rem",
-              transform: "rotate(90deg)",
-            }}
-          />
-          All Chats
-        </Link>
+        <div className={styles.head}>
+          <h2 className={styles.title}>
+            {chat?.title} <span>{chat?.language}</span>
+          </h2>
+
+          {chat?.createdAt && (
+            <span className={styles.date}>{formatDate(chat?.createdAt)}</span>
+          )}
+        </div>
 
         <button
           className={
@@ -206,14 +239,37 @@ export default function ChatClient({ chat, session, messages }: Props) {
           }
           disabled={loading}
           onClick={recording ? stopRecording : startRecording}>
-          {!loading ? (recording ? "STOP" : "RECORD") : "Loading..."}
+          {!loading ? (
+            recording ? (
+              <MickroPhoneOffSvg className={styles.icon} />
+            ) : (
+              <MickroPhoneSvg className={styles.icon} />
+            )
+          ) : (
+            <LoadSvg
+              className={`${styles.icon} ${styles.load}`}
+              style={{ fill: "rgb(77 156 255 / 1)" }}
+            />
+          )}
         </button>
 
         <div className={styles.content}>
           {transcript && (
             <>
               <h2 className={styles.label}>Youre transcript:</h2>
-              <span className={styles.transcript}>{transcript}</span>
+
+              <span className={styles.transcript}>
+                {transcript}
+
+                <div className={styles.logo}>
+                  <Logo
+                    src={`${user?.photo}`}
+                    width={30}
+                    height={30}
+                    alt={`${user?.firstName} ${user?.lastName}`}
+                  />
+                </div>
+              </span>
             </>
           )}
 
@@ -230,20 +286,20 @@ export default function ChatClient({ chat, session, messages }: Props) {
                 <button
                   className={`${styles.button} ${styles.copy}`}
                   onClick={() => copyText(aiReply)}>
-                  {copied ? "Copied" : "Copy text"}
+                  {copied ? "✅" : <CopySvg />}
                 </button>
 
                 <button
                   className={`${styles.button} ${styles.play}`}
                   onClick={handlePlayAudio}>
-                  Play audio
+                  <PlaySvg />
                 </button>
 
                 {audioStart && (
                   <button
                     className={`${styles.button} ${styles.stop} ${styles.small}`}
                     onClick={handleStopAudio}>
-                    Stop audio
+                    <StopSvg />
                   </button>
                 )}
               </div>

@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { useUserData } from "@/hooks/useUserData";
 import ChatClient from "./page.uc";
+
+export const metadata: Metadata = {
+  title: "Chat",
+};
 
 interface Params {
   id: string;
@@ -46,6 +51,7 @@ export default async function Chat({ params }: Props) {
   return (
     <ChatClient
       chat={chatResponseData}
+      user={data.user}
       session={data.session}
       messages={messagesResponseData}
     />
