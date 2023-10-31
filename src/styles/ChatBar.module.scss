@@ -81,9 +81,13 @@
 }
 
 .info {
-  font-size: 1rem;
-  font-weight: 400;
-  color: #1c1e21b3;
-
   padding: 0.55rem 0.85rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #ffffffb3;
 }

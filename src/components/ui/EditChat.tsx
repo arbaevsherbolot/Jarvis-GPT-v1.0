@@ -63,7 +63,7 @@ export default function EditChat({ title, language, session, id }: props) {
       }
     } catch (e) {
       //@ts-ignore
-      errorNotification(e.response.data.message);
+      errorNotification(e.message);
       console.error(e);
     } finally {
       setLoading(false);
@@ -119,7 +119,9 @@ export default function EditChat({ title, language, session, id }: props) {
 
             <select
               disabled={loading}
-              className={styles.select}
+              className={
+                loading ? `${styles.select} ${styles.load}` : styles.select
+              }
               {...register("language", {
                 required: "Language is required",
               })}>
@@ -128,7 +130,11 @@ export default function EditChat({ title, language, session, id }: props) {
               <option value="RU">Russian</option>
             </select>
 
-            <Button type="submit" load={loading} disabled={!isValid}>
+            <Button
+              type="submit"
+              load={loading}
+              style="edit"
+              disabled={!isValid}>
               Update
             </Button>
           </div>

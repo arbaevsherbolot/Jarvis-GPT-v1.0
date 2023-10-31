@@ -113,7 +113,9 @@ export default function NewChat({ session }: props) {
 
             <select
               disabled={loading}
-              className={styles.select}
+              className={
+                loading ? `${styles.select} ${styles.load}` : styles.select
+              }
               {...register("language", {
                 required: "Language is required",
               })}>
@@ -122,7 +124,11 @@ export default function NewChat({ session }: props) {
               <option value="RU">Russian</option>
             </select>
 
-            <Button type="submit" load={loading} disabled={!isValid}>
+            <Button
+              type="submit"
+              load={loading}
+              style="edit"
+              disabled={!isValid}>
               Create
             </Button>
           </div>

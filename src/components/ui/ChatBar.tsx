@@ -176,16 +176,15 @@ export default function ChatBar({ chats, user, session }: Props) {
       {openDeleteChatModal && selectedChatId && (
         <Modal open={openDeleteChatModal} title="Delete Chat">
           <span className={styles.info}>
-            Are you sure about deleting this chat?: <br /> {selectedChat?.title}
+            Are you sure about deleting this chat: {selectedChat?.title}?
+            <Button
+              type="button"
+              load={false}
+              style="delete"
+              onClick={() => archiveChat(selectedChatId)}>
+              Delete
+            </Button>
           </span>
-
-          <Button
-            type="button"
-            load={false}
-            style="delete"
-            onClick={() => archiveChat(selectedChatId)}>
-            Delete
-          </Button>
         </Modal>
       )}
     </>
