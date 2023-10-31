@@ -11,10 +11,10 @@ import {
   errorNotification,
   successNotification,
 } from "@/lib/utils/notification";
-import { ChatSvg, EditSvg, LoadSvg, PlusSvg, TrashSvg } from "@/assets/svg";
-import styles from "@/styles/ChatBar.module.scss";
 import EditChat from "./EditChat";
 import Button from "./Button";
+import { ChatSvg, EditSvg, LoadSvg, PlusSvg, TrashSvg } from "@/assets/svg";
+import styles from "@/styles/ChatBar.module.scss";
 
 type UserRole = "USER" | "ADMIN" | "SUPERADMIN";
 
@@ -66,9 +66,10 @@ interface Props {
   chats: Chat[];
   user: User;
   session: string;
+  v2?: boolean;
 }
 
-export default function ChatBar({ chats, user, session }: Props) {
+export default function ChatBar({ chats, user, session, v2 }: Props) {
   const router = useRouter();
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -122,7 +123,7 @@ export default function ChatBar({ chats, user, session }: Props) {
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div className={v2 ? `${styles.wrapper} ${styles.hide}` : styles.wrapper}>
         <div className={styles.links}>
           <div className={styles.link} onClick={handleOpenNewChatModal}>
             New Chat

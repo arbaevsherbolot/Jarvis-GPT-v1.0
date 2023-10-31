@@ -57,7 +57,10 @@ export default function Account({ user }: Props) {
         <span className={styles.email}>{user.email}</span>
       </div>
 
-      <LogoutSvg className={styles.logout} onClick={handleSignOut} />
+      <div className={styles.logout}>
+        <LogoutSvg className={styles.icon} onClick={handleSignOut} />
+        Log Out
+      </div>
     </div>
   );
 }

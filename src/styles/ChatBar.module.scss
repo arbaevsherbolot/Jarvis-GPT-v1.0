@@ -1,6 +1,6 @@
 .wrapper {
-  width: 25%;
-  min-height: 100vh;
+  width: 28%;
+  min-height: 100%;
 
   padding: 0.85rem;
 
@@ -10,8 +10,16 @@
   // background: #1c1e21;
   border-right: 1px solid hsla(220, 9%, 46%, 0.1);
 
-  @media (max-width: 1265px) {
-    display: none;
+  @media (max-width: 1430px) {
+    width: 100%;
+
+    flex-direction: column-reverse;
+  }
+
+  &.hide {
+    @media (max-width: 1430px) {
+      display: none;
+    }
   }
 
   .links {

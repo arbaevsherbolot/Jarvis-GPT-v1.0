@@ -1,5 +1,6 @@
 import { useUserData } from "@/hooks/useUserData";
 import ChatBar from "@/components/ui/ChatBar";
+import ChatBarMenu from "@/components/ui/ChatBarMenu";
 
 interface Props {
   children: React.ReactNode;
@@ -31,6 +32,13 @@ export default async function RootLayout({ children }: Props) {
         display: "flex",
       }}>
       <ChatBar
+        chats={chatResponseData}
+        user={data.user}
+        session={data.session}
+        v2={true}
+      />
+
+      <ChatBarMenu
         chats={chatResponseData}
         user={data.user}
         session={data.session}

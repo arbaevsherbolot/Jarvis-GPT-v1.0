@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 import { CloseSvg } from "@/assets/svg";
 import styles from "@/styles/Modal.module.scss";
 
-interface props {
+interface Props {
   children: React.ReactNode;
   open: boolean;
   title?: string;
 }
 
-export default function Modal({ children, open, title }: props) {
+export default function Modal({ children, open, title }: Props) {
   const [isClose, setIsClose] = useState<boolean>(true);
   const close = isClose ? open : !open;
 
