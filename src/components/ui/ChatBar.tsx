@@ -95,6 +95,8 @@ export default function ChatBar({ chats, user, session, v2 }: Props) {
   };
 
   const archiveChat = async (id: number) => {
+    setLoading(true);
+
     try {
       const response = await axios.patch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/chat/${id}/archive`,
@@ -114,6 +116,7 @@ export default function ChatBar({ chats, user, session, v2 }: Props) {
         router.refresh();
       }
     } catch (e) {
+      setLoading(false);
       errorNotification("Something went wrong");
       console.error(e);
     } finally {
@@ -180,7 +183,7 @@ export default function ChatBar({ chats, user, session, v2 }: Props) {
             Are you sure about deleting this chat: {selectedChat?.title}?
             <Button
               type="button"
-              load={false}
+              load={loading}
               style="delete"
               onClick={() => archiveChat(selectedChatId)}>
               Delete

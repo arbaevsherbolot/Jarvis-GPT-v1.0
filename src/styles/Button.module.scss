@@ -64,6 +64,19 @@
 
   &.delete {
     background: rgb(255, 39, 39);
+
+    &.disabled {
+      background: rgb(255, 107, 107);
+
+      cursor: not-allowed;
+
+      color: #ffffff89;
+
+      &:hover,
+      &:active {
+        background: rgb(255, 107, 107);
+      }
+    }
   }
 
   &.black {
@@ -123,5 +136,9 @@
   &:hover,
   &:active {
     background: #9b90ffbb;
+  }
+
+  &.delete {
+    background: rgb(255, 107, 107);
   }
 }
