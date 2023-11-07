@@ -183,7 +183,7 @@ export default function LoginForm() {
             </Link>
           </div>
 
-          <div className={styles.info}>Powered by Notion</div>
+          <div className={styles.info}>Powered by WEDEVX</div>
         </form>
       </div>
     </>
