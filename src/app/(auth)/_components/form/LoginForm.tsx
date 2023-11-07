@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { getCookie } from "cookies-next";
 import {
@@ -75,7 +76,7 @@ export default function LoginForm() {
     <>
       <div className={styles.form_wrapper}>
         <form className={styles.form} onSubmit={handleSubmit(handleSubmitForm)}>
-          <h2 className={styles.title}>Welcome back Sir!</h2>
+          <h2 className={styles.title}>Log in</h2>
 
           <div className={styles.inputs_container}>
             <div className={styles.input_container}>
@@ -87,7 +88,7 @@ export default function LoginForm() {
                 className={
                   loading ? `${styles.input} ${styles.load}` : styles.input
                 }
-                placeholder="email or name"
+                placeholder="Email or Name"
                 onFocus={handleShowInput}
                 {...register("emailOrName", {
                   required: "Email or Name required",
@@ -120,7 +121,7 @@ export default function LoginForm() {
                     ? `${styles.input} ${styles.load} ${styles.password}`
                     : `${styles.input} ${styles.password}`
                 }
-                placeholder="password"
+                placeholder="Password"
                 {...register("password", {
                   required: "Password required",
                   minLength: {
@@ -139,16 +140,16 @@ export default function LoginForm() {
               )}
             </div>
 
-            <Button
-              type="submit"
-              load={loading}
-              style="edit"
-              disabled={!isValid}>
-              Log In
+            <Button type="submit" load={loading} disabled={!isValid}>
+              Continue with email or name
             </Button>
+
+            <Link className={styles.link} href="/password/forgot">
+              Forgot password?
+            </Link>
           </div>
 
-          {/* <div className={styles.info}></div> */}
+          <div className={styles.info}>Powered by Notion</div>
         </form>
       </div>
     </>

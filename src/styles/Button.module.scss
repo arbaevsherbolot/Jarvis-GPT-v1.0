@@ -3,17 +3,7 @@
   width: 100%;
   min-width: 150px;
 
-  padding: 0.85rem;
-
-  background: #5340ff;
-  border: 0;
-  border-radius: 0.625rem;
-
-  cursor: pointer;
-
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #ffffff;
+  padding: 0.65rem;
 
   display: flex;
   align-items: center;
@@ -22,24 +12,35 @@
 
   transition: 0.25s;
 
+  background: rgb(253, 245, 242);
+  border: 0;
+  box-shadow: rgb(15 15 15 / 10%) 0px 1px 2px,
+    rgb(235 87 87 / 30%) 0px 0px 0px 1px inset;
+  border-radius: 0.425rem;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(235, 87, 87);
+
   &:hover {
-    background: #513ef7;
+    background: rgb(251, 239, 235);
   }
 
   &:active {
-    background: #4d3ce8;
+    background: rgb(241, 227, 222);
   }
 
   &.disabled {
-    background: #9b90ffbb;
-
     cursor: not-allowed;
 
-    color: #ffffff89;
+    box-shadow: rgb(15 15 15 / 10%) 0px 1px 2px,
+      rgba(235, 87, 87, 0.135) 0px 0px 0px 1px inset;
+
+    color: rgba(235, 87, 87, 0.401);
 
     &:hover,
     &:active {
-      background: #9b90ffbb;
+      background: rgb(253, 245, 242);
     }
   }
 
@@ -63,7 +64,11 @@
   }
 
   &.delete {
+    padding: 0.85rem;
+
     background: rgb(255, 39, 39);
+
+    color: #fff;
 
     &.disabled {
       background: rgb(255, 107, 107);
@@ -84,9 +89,12 @@
   }
 
   &.edit {
+    padding: 0.85rem;
+
     gap: 0.45rem;
 
     background: #fff;
+    box-shadow: 0 0 0 transparent;
     border-radius: 0.425rem;
 
     font-size: 0.875rem;
@@ -129,13 +137,14 @@
 }
 
 .button_load {
-  background: #9b90ffbb;
-
   cursor: not-allowed;
+
+  box-shadow: rgb(15 15 15 / 10%) 0px 1px 2px,
+    rgba(235, 87, 87, 0.135) 0px 0px 0px 1px inset;
 
   &:hover,
   &:active {
-    background: #9b90ffbb;
+    background: rgb(253, 245, 242);
   }
 
   &.delete {

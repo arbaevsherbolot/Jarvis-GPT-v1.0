@@ -2,7 +2,6 @@
 
 import Logo from "./Logo";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
 import { LogoutSvg } from "@/assets/svg";
 import styles from "@/styles/Account.module.scss";
 
@@ -36,8 +35,7 @@ export default function Account({ user }: Props) {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    await signOut();
-    router.refresh();
+    router.push("/logout");
   };
 
   return (
@@ -57,8 +55,8 @@ export default function Account({ user }: Props) {
         <span className={styles.email}>{user.email}</span>
       </div>
 
-      <div className={styles.logout}>
-        <LogoutSvg className={styles.icon} onClick={handleSignOut} />
+      <div className={styles.logout} onClick={handleSignOut}>
+        <LogoutSvg className={styles.icon} />
         Log Out
       </div>
     </div>

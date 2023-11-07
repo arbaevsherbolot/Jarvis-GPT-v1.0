@@ -1,0 +1,157 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  errorNotification,
+  successNotification,
+} from "@/lib/utils/notification";
+import axios from "axios";
+import Button from "@/components/ui/Button";
+import styles from "@/styles/Form.module.scss";
+
+type FormData = {
+  password: string;
+  confirmPassword: string;
+};
+
+export default function ResetForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
+    setLoading(true);
+
+    const { password, confirmPassword } = formData;
+
+    if (password !== confirmPassword) {
+      errorNotification(`Passwords don't match`);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/password/reset`,
+        {
+          password,
+          token,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            baseurl: `${process.env.NEXT_PUBLIC_API_URL}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        successNotification("Password updated successfully");
+        router.push("/login");
+      }
+    } catch (e) {
+      //@ts-ignore
+      errorNotification(e.response.data.message);
+      router.push("/password/forgot");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!token) {
+      router.push("/password/forgot");
+    }
+  }, [token]);
+
+  return (
+    <>
+      <div className={styles.form_wrapper}>
+        <form className={styles.form} onSubmit={handleSubmit(handleSubmitForm)}>
+          <h2 className={styles.title}>Reset Password</h2>
+
+          <div className={styles.inputs_container}>
+            <div className={styles.input_container}>
+              <span className={styles.label}>Password</span>
+
+              <input
+                type="password"
+                disabled={loading}
+                className={
+                  loading ? `${styles.input} ${styles.load}` : styles.input
+                }
+                placeholder="Enter your new password"
+                {...register("password", {
+                  required: "Password required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must contain at least 6 characters",
+                  },
+                  maxLength: {
+                    value: 24,
+                    message: "Password cannot contain more than 24 characters",
+                  },
+                })}
+              />
+
+              {errors.password && (
+                <span className={styles.error}>{errors.password.message}</span>
+              )}
+            </div>
+
+            <div className={styles.input_container}>
+              <span className={styles.label}>Confirm Password</span>
+
+              <input
+                type="password"
+                disabled={loading}
+                className={
+                  loading ? `${styles.input} ${styles.load}` : styles.input
+                }
+                placeholder="Confirm your new password"
+                {...register("confirmPassword", {
+                  required: "Please confirm your password",
+                  minLength: {
+                    value: 6,
+                    message: "Password must contain at least 6 characters",
+                  },
+                  maxLength: {
+                    value: 24,
+                    message: "Password cannot contain more than 24 characters",
+                  },
+                })}
+              />
+
+              {errors.confirmPassword && (
+                <span className={styles.error}>
+                  {errors.confirmPassword.message}
+                </span>
+              )}
+            </div>
+
+            <Button type="submit" load={loading}>
+              Reset
+            </Button>
+
+            <Link className={styles.link} href="/password/forgot">
+              Send link again?
+            </Link>
+          </div>
+
+          <div className={styles.info}>Powered by Notion</div>
+        </form>
+      </div>
+    </>
+  );
+}

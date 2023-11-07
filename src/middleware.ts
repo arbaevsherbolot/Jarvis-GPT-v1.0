@@ -78,7 +78,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (!isAuth && pathname !== "/login") {
+  if (
+    !isAuth &&
+    pathname !== "/login" &&
+    pathname !== "/password/forgot" &&
+    pathname !== "/password/reset"
+  ) {
     const redirectUrl = new URL(
       pathname !== "/" ? `/login?next=${pathname}` : "/login",
       url
