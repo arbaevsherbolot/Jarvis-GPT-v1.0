@@ -98,7 +98,7 @@ export default function LoginForm() {
                   className={
                     loading ? `${styles.input} ${styles.load}` : styles.input
                   }
-                  placeholder="Email or Name"
+                  placeholder="Enter your email address or name..."
                   onFocus={handleShowInput}
                   {...register("emailOrName", {
                     required: "Email or Name required",
@@ -143,7 +143,7 @@ export default function LoginForm() {
                       ? `${styles.input} ${styles.load} ${styles.password}`
                       : `${styles.input} ${styles.password}`
                   }
-                  placeholder="Password"
+                  placeholder="Enter your password"
                   {...register("password", {
                     required: "Password required",
                     minLength: {
