@@ -11,6 +11,7 @@ import {
 } from "@/lib/utils/notification";
 import { signIn } from "next-auth/react";
 import Button from "@/components/ui/Button";
+import { CloseSvg } from "@/assets/svg";
 import styles from "@/styles/Form.module.scss";
 
 type FormData = {
@@ -27,8 +28,12 @@ export default function LoginForm() {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors, isValid },
   } = useForm<FormData>();
+
+  const emailOrName = watch("emailOrName");
+  const password = watch("password");
 
   const [loading, setLoading] = useState<boolean>(false);
   const [showInput, setShowInput] = useState<boolean>(false);
@@ -36,6 +41,10 @@ export default function LoginForm() {
 
   const handleShowInput = () => {
     setShowInput(true);
+  };
+
+  const handleClearInput = (name: keyof FormData) => {
+    setValue(name, "");
   };
 
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
@@ -80,25 +89,37 @@ export default function LoginForm() {
 
           <div className={styles.inputs_container}>
             <div className={styles.input_container}>
-              {/* <span className={styles.label}>Email or Name</span> */}
+              <span className={styles.label}>Email or Name</span>
 
-              <input
-                type="text"
-                disabled={loading}
-                className={
-                  loading ? `${styles.input} ${styles.load}` : styles.input
-                }
-                placeholder="Email or Name"
-                onFocus={handleShowInput}
-                {...register("emailOrName", {
-                  required: "Email or Name required",
-                  pattern: {
-                    value:
-                      /^[\p{L}\d]+@[A-Za-z\d.-]+\.[A-Za-z]{2,}$|^[\p{L}\d\s]+$/u,
-                    message: "Invalid Email or Name",
-                  },
-                })}
-              />
+              <div className={styles.input_wrapper}>
+                <input
+                  type="text"
+                  disabled={loading}
+                  className={
+                    loading ? `${styles.input} ${styles.load}` : styles.input
+                  }
+                  placeholder="Email or Name"
+                  onFocus={handleShowInput}
+                  {...register("emailOrName", {
+                    required: "Email or Name required",
+                    pattern: {
+                      value:
+                        /^[\p{L}\d]+@[A-Za-z\d.-]+\.[A-Za-z]{2,}$|^[\p{L}\d\s]+$/u,
+                      message: "Invalid Email or Name",
+                    },
+                  })}
+                />
+
+                <CloseSvg
+                  className={styles.clear}
+                  onClick={() => handleClearInput("emailOrName")}
+                  style={
+                    !loading && emailOrName && emailOrName.length > 0
+                      ? { fontSize: "1.1rem", fill: "#fff" }
+                      : { display: "none" }
+                  }
+                />
+              </div>
 
               {errors.emailOrName && (
                 <span className={styles.error}>
@@ -110,30 +131,43 @@ export default function LoginForm() {
             <div
               className={styles.input_container}
               style={!showInput ? { display: "none" } : { display: "flex" }}>
-              {/* <span className={styles.label}>Password</span> */}
+              <span className={styles.label}>Password</span>
 
-              <input
-                type="password"
-                disabled={loading}
-                autoComplete="off"
-                className={
-                  loading
-                    ? `${styles.input} ${styles.load} ${styles.password}`
-                    : `${styles.input} ${styles.password}`
-                }
-                placeholder="Password"
-                {...register("password", {
-                  required: "Password required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must contain at least 6 characters",
-                  },
-                  maxLength: {
-                    value: 24,
-                    message: "Password cannot contain more than 24 characters",
-                  },
-                })}
-              />
+              <div className={styles.input_wrapper}>
+                <input
+                  type="password"
+                  disabled={loading}
+                  autoComplete="off"
+                  className={
+                    loading
+                      ? `${styles.input} ${styles.load} ${styles.password}`
+                      : `${styles.input} ${styles.password}`
+                  }
+                  placeholder="Password"
+                  {...register("password", {
+                    required: "Password required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must contain at least 6 characters",
+                    },
+                    maxLength: {
+                      value: 24,
+                      message:
+                        "Password cannot contain more than 24 characters",
+                    },
+                  })}
+                />
+
+                <CloseSvg
+                  className={styles.clear}
+                  onClick={() => handleClearInput("password")}
+                  style={
+                    !loading && password && password.length > 0
+                      ? { fontSize: "1.1rem", fill: "#fff" }
+                      : { display: "none" }
+                  }
+                />
+              </div>
 
               {errors.password && (
                 <span className={styles.error}>{errors.password.message}</span>

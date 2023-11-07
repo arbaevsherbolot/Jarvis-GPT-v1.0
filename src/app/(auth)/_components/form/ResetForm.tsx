@@ -10,6 +10,7 @@ import {
 } from "@/lib/utils/notification";
 import axios from "axios";
 import Button from "@/components/ui/Button";
+import { CloseSvg } from "@/assets/svg";
 import styles from "@/styles/Form.module.scss";
 
 type FormData = {
@@ -25,10 +26,19 @@ export default function ResetForm() {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<FormData>();
 
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
+
   const [loading, setLoading] = useState<boolean>(false);
+
+  const handleClearInput = (name: keyof FormData) => {
+    setValue(name, "");
+  };
 
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
     setLoading(true);
@@ -85,25 +95,38 @@ export default function ResetForm() {
             <div className={styles.input_container}>
               <span className={styles.label}>Password</span>
 
-              <input
-                type="password"
-                disabled={loading}
-                className={
-                  loading ? `${styles.input} ${styles.load}` : styles.input
-                }
-                placeholder="Enter your new password"
-                {...register("password", {
-                  required: "Password required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must contain at least 6 characters",
-                  },
-                  maxLength: {
-                    value: 24,
-                    message: "Password cannot contain more than 24 characters",
-                  },
-                })}
-              />
+              <div className={styles.input_wrapper}>
+                <input
+                  type="password"
+                  disabled={loading}
+                  className={
+                    loading ? `${styles.input} ${styles.load}` : styles.input
+                  }
+                  placeholder="Enter your new password"
+                  {...register("password", {
+                    required: "Password required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must contain at least 6 characters",
+                    },
+                    maxLength: {
+                      value: 24,
+                      message:
+                        "Password cannot contain more than 24 characters",
+                    },
+                  })}
+                />
+
+                <CloseSvg
+                  className={styles.clear}
+                  onClick={() => handleClearInput("password")}
+                  style={
+                    !loading && password && password.length > 0
+                      ? { fontSize: "1.1rem", fill: "#fff" }
+                      : { display: "none" }
+                  }
+                />
+              </div>
 
               {errors.password && (
                 <span className={styles.error}>{errors.password.message}</span>
@@ -113,25 +136,38 @@ export default function ResetForm() {
             <div className={styles.input_container}>
               <span className={styles.label}>Confirm Password</span>
 
-              <input
-                type="password"
-                disabled={loading}
-                className={
-                  loading ? `${styles.input} ${styles.load}` : styles.input
-                }
-                placeholder="Confirm your new password"
-                {...register("confirmPassword", {
-                  required: "Please confirm your password",
-                  minLength: {
-                    value: 6,
-                    message: "Password must contain at least 6 characters",
-                  },
-                  maxLength: {
-                    value: 24,
-                    message: "Password cannot contain more than 24 characters",
-                  },
-                })}
-              />
+              <div className={styles.input_wrapper}>
+                <input
+                  type="password"
+                  disabled={loading}
+                  className={
+                    loading ? `${styles.input} ${styles.load}` : styles.input
+                  }
+                  placeholder="Confirm your new password"
+                  {...register("confirmPassword", {
+                    required: "Please confirm your password",
+                    minLength: {
+                      value: 6,
+                      message: "Password must contain at least 6 characters",
+                    },
+                    maxLength: {
+                      value: 24,
+                      message:
+                        "Password cannot contain more than 24 characters",
+                    },
+                  })}
+                />
+
+                <CloseSvg
+                  className={styles.clear}
+                  onClick={() => handleClearInput("confirmPassword")}
+                  style={
+                    !loading && confirmPassword && confirmPassword.length > 0
+                      ? { fontSize: "1.1rem", fill: "#fff" }
+                      : { display: "none" }
+                  }
+                />
+              </div>
 
               {errors.confirmPassword && (
                 <span className={styles.error}>

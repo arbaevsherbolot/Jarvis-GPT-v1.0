@@ -11,6 +11,7 @@ import {
 } from "@/lib/utils/notification";
 import axios from "axios";
 import Button from "@/components/ui/Button";
+import { CloseSvg } from "@/assets/svg";
 import styles from "@/styles/Form.module.scss";
 
 type FormData = {
@@ -24,10 +25,17 @@ export default function ForgotForm() {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<FormData>();
 
+  const email = watch("email");
+
   const [loading, setLoading] = useState<boolean>(false);
+
+  const handleClearInput = (name: keyof FormData) => {
+    setValue(name, "");
+  };
 
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
     setLoading(true);
@@ -74,21 +82,33 @@ export default function ForgotForm() {
             <div className={styles.input_container}>
               <span className={styles.label}>Email</span>
 
-              <input
-                type="text"
-                disabled={loading}
-                className={
-                  loading ? `${styles.input} ${styles.load}` : styles.input
-                }
-                placeholder="Enter your email address..."
-                {...register("email", {
-                  required: "Email required",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid Email",
-                  },
-                })}
-              />
+              <div className={styles.input_wrapper}>
+                <input
+                  type="text"
+                  disabled={loading}
+                  className={
+                    loading ? `${styles.input} ${styles.load}` : styles.input
+                  }
+                  placeholder="Enter your email address..."
+                  {...register("email", {
+                    required: "Email required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid Email",
+                    },
+                  })}
+                />
+
+                <CloseSvg
+                  className={styles.clear}
+                  onClick={() => handleClearInput("email")}
+                  style={
+                    !loading && email && email.length > 0
+                      ? { fontSize: "1.1rem", fill: "#fff" }
+                      : { display: "none" }
+                  }
+                />
+              </div>
 
               {errors.email && (
                 <span className={styles.error}>{errors.email.message}</span>
