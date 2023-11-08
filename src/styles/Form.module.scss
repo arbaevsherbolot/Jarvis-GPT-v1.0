@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
 
-  max-width: 380px;
+  max-width: 420px;
   max-height: 490px;
 
   padding: 2.55rem 0.85rem;
@@ -12,7 +12,7 @@
   justify-content: center;
 
   background: #fffefc;
-  box-shadow: 0 0 90px #1a1a1a19;
+  // box-shadow: 0 0 90px #1a1a1a19;
   border-radius: 1.265rem;
 
   transition: 0.25s;
@@ -38,7 +38,7 @@
     .title {
       text-align: center;
 
-      font-size: 1.85rem;
+      font-size: 1.55rem;
       font-weight: 600;
       color: rgb(55, 53, 47);
     }

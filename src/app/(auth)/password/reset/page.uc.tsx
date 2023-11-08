@@ -1,6 +1,7 @@
 "use client";
 
 import ResetForm from "../../_components/form/ResetForm";
+import { WedevxSvg } from "@/assets/svg";
 import styles from "@/styles/Auth.module.scss";
 
 export default function ResetClient() {
@@ -10,6 +11,8 @@ export default function ResetClient() {
         <div className={styles.content}>
           <ResetForm />
         </div>
+
+        <WedevxSvg className={styles.logo} />
       </div>
     </>
   );

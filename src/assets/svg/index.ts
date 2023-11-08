@@ -19,3 +19,5 @@ export { default as MickroPhoneOffSvg } from "./mickroPhoneOff.svg";
 export { default as PlaySvg } from "./play.svg";
 export { default as StopSvg } from "./stop.svg";
 export { default as CopySvg } from "./copy.svg";
+export { default as GoogleSvg } from "./google.svg";
+export { default as WedevxSvg } from "./wedevx.svg";

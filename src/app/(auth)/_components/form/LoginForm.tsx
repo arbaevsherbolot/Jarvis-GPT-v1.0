@@ -11,6 +11,7 @@ import {
 } from "@/lib/utils/notification";
 import { signIn } from "next-auth/react";
 import Button from "@/components/ui/Button";
+import Google from "@/components/ui/Google";
 import { CloseSvg } from "@/assets/svg";
 import styles from "@/styles/Form.module.scss";
 
@@ -86,6 +87,8 @@ export default function LoginForm() {
       <div className={styles.form_wrapper}>
         <form className={styles.form} onSubmit={handleSubmit(handleSubmitForm)}>
           <h2 className={styles.title}>Log in</h2>
+
+          <Google />
 
           <div className={styles.inputs_container}>
             <div className={styles.input_container}>

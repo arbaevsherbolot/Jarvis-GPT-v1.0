@@ -1,6 +1,7 @@
 "use client";
 
 import LoginForm from "../_components/form/LoginForm";
+import { WedevxSvg } from "@/assets/svg";
 import styles from "@/styles/Auth.module.scss";
 
 export default function LoginClient() {
@@ -10,6 +11,8 @@ export default function LoginClient() {
         <div className={styles.content}>
           <LoginForm />
         </div>
+
+        <WedevxSvg className={styles.logo} />
       </div>
     </>
   );

@@ -37,7 +37,7 @@ export async function middleware(request: NextRequest) {
 
   let user: User | undefined;
 
-  if (token && token?.tokens.access_token) {
+  if (token && token?.tokens) {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
