@@ -21,3 +21,4 @@ export { default as StopSvg } from "./stop.svg";
 export { default as CopySvg } from "./copy.svg";
 export { default as GoogleSvg } from "./google.svg";
 export { default as WedevxSvg } from "./wedevx.svg";
+export { default as MailSvg } from "./mail.svg";

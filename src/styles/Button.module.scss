@@ -86,10 +86,22 @@
     }
   }
 
-  &.black {
-    background: rgb(20, 20, 20);
+  &.white {
+    background: rgba(242, 241, 238, 0.3);
+    box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px inset;
+    border: 0;
+    outline: 2px solid transparent;
 
-    color: #fff;
+    color: rgb(55, 53, 47);
+
+    &:hover {
+      background: rgba(242, 241, 238, 0.8);
+    }
+
+    &:active {
+      box-shadow: rgb(124, 177, 255) 0px 0px 0px 1px inset;
+      outline-color: rgba(124, 176, 255, 0.496);
+    }
   }
 
   &.edit {

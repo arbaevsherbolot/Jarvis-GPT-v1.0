@@ -10,7 +10,7 @@ import {
 } from "@/lib/utils/notification";
 import axios from "axios";
 import Button from "@/components/ui/Button";
-import { CloseSvg } from "@/assets/svg";
+import { CloseSvg, WedevxSvg } from "@/assets/svg";
 import styles from "@/styles/Form.module.scss";
 
 type FormData = {
@@ -185,7 +185,7 @@ export default function ResetForm() {
             </Link>
           </div>
 
-          <div className={styles.info}>Powered by WEDEVX</div>
+          <div className={styles.info}>Powered by <WedevxSvg className={styles.logo} /></div>
         </form>
       </div>
     </>

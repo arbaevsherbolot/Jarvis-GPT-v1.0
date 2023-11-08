@@ -17,7 +17,7 @@ interface props {
 type TStyles = {
   edit: string;
   delete: string;
-  black: string;
+  white: string;
 };
 
 type TTypes = {

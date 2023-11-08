@@ -35,7 +35,7 @@ export default function Google() {
 
   return (
     <>
-      <Button load={loading} type="button" onClick={handleGoogleAuth}>
+      <Button load={loading} type="button" style="white" onClick={handleGoogleAuth}>
         <GoogleSvg style={{ fontSize: "1.3rem" }} />
         Continue with Google
       </Button>

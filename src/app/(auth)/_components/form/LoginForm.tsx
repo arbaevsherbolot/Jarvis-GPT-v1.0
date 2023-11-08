@@ -12,7 +12,7 @@ import {
 import { signIn } from "next-auth/react";
 import Button from "@/components/ui/Button";
 import Google from "@/components/ui/Google";
-import { CloseSvg } from "@/assets/svg";
+import { CloseSvg, MailSvg, WedevxSvg } from "@/assets/svg";
 import styles from "@/styles/Form.module.scss";
 
 type FormData = {
@@ -38,10 +38,14 @@ export default function LoginForm() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [showInput, setShowInput] = useState<boolean>(false);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   const handleShowInput = () => {
     setShowInput(true);
+  };
+
+  const handleShowForm = () => {
+    setShowForm(true);
   };
 
   const handleClearInput = (name: keyof FormData) => {
@@ -90,9 +94,27 @@ export default function LoginForm() {
 
           <Google />
 
-          <div className={styles.inputs_container}>
+          <div style={showForm ? { display: "none" } : { display: "block" }}>
+            <Button
+              load={false}
+              type="button"
+              style="white"
+              onClick={handleShowForm}>
+              <MailSvg className={styles.icon} /> Continue with Email
+            </Button>
+          </div>
+
+          <div
+            className={styles.inputs_container}
+            style={!showForm ? { display: "none" } : { display: "flex" }}>
+            <div className={styles.devider}>
+              <hr />
+              <span>or</span>
+              <hr />
+            </div>
+
             <div className={styles.input_container}>
-              <span className={styles.label}>Email or Name</span>
+              <span className={styles.label}>Email address or name</span>
 
               <div className={styles.input_wrapper}>
                 <input
@@ -186,7 +208,9 @@ export default function LoginForm() {
             </Link>
           </div>
 
-          <div className={styles.info}>Powered by WEDEVX</div>
+          <div className={styles.info}>
+            Powered by <WedevxSvg className={styles.logo} />
+          </div>
         </form>
       </div>
     </>

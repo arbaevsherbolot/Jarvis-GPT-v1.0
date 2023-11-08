@@ -26,20 +26,4 @@
 
     overflow: hidden;
   }
-
-  .logo {
-    position: absolute;
-    top: 0;
-    left: 3.8rem;
-
-    z-index: 9;
-
-    font-size: 8rem;
-
-    @media (max-width: 525px) {
-      left: 50%;
-
-      transform: translateX(-50%);
-    }
-  }
 }

@@ -11,7 +11,7 @@ import {
 } from "@/lib/utils/notification";
 import axios from "axios";
 import Button from "@/components/ui/Button";
-import { CloseSvg } from "@/assets/svg";
+import { CloseSvg, WedevxSvg } from "@/assets/svg";
 import styles from "@/styles/Form.module.scss";
 
 type FormData = {
@@ -80,7 +80,7 @@ export default function ForgotForm() {
 
           <div className={styles.inputs_container}>
             <div className={styles.input_container}>
-              <span className={styles.label}>Email</span>
+              <span className={styles.label}>Email address</span>
 
               <div className={styles.input_wrapper}>
                 <input
@@ -124,7 +124,9 @@ export default function ForgotForm() {
             </Link>
           </div>
 
-          <div className={styles.info}>Powered by WEDEVX</div>
+          <div className={styles.info}>
+            Powered by <WedevxSvg className={styles.logo} />
+          </div>
         </form>
       </div>
     </>
