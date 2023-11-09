@@ -168,7 +168,7 @@ export default function LoginForm() {
                       ? `${styles.input} ${styles.load} ${styles.password}`
                       : `${styles.input} ${styles.password}`
                   }
-                  placeholder="Enter your password"
+                  placeholder="Enter your password..."
                   {...register("password", {
                     required: "Password required",
                     minLength: {

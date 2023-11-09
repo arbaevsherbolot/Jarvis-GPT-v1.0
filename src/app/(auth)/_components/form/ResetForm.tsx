@@ -102,7 +102,7 @@ export default function ResetForm() {
                   className={
                     loading ? `${styles.input} ${styles.load}` : styles.input
                   }
-                  placeholder="Enter your new password"
+                  placeholder="Enter your new password..."
                   {...register("password", {
                     required: "Password required",
                     minLength: {
@@ -143,7 +143,7 @@ export default function ResetForm() {
                   className={
                     loading ? `${styles.input} ${styles.load}` : styles.input
                   }
-                  placeholder="Confirm your new password"
+                  placeholder="Confirm your new password..."
                   {...register("confirmPassword", {
                     required: "Please confirm your password",
                     minLength: {
