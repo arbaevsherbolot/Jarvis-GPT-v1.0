@@ -92,7 +92,7 @@ export default function LoginForm() {
         <form className={styles.form} onSubmit={handleSubmit(handleSubmitForm)}>
           <h2 className={styles.title}>Log in</h2>
 
-          <Google />
+          {/* <Google /> */}
 
           <div style={showForm ? { display: "none" } : { display: "block" }}>
             <Button
@@ -107,11 +107,11 @@ export default function LoginForm() {
           <div
             className={styles.inputs_container}
             style={!showForm ? { display: "none" } : { display: "flex" }}>
-            <div className={styles.devider}>
+            {/* <div className={styles.devider}>
               <hr />
               <span>or</span>
               <hr />
-            </div>
+            </div> */}
 
             <div className={styles.input_container}>
               <span className={styles.label}>Email address or name</span>
