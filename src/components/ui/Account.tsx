@@ -40,12 +40,18 @@ export default function Account({ user }: Props) {
 
   return (
     <div className={styles.account}>
-      <Logo
-        src={`${user.photo}`}
-        width={50}
-        height={50}
-        alt={`${user.firstName} ${user.lastName}`}
-      />
+      {user.photo ? (
+        <Logo
+          src={`${user.photo}`}
+          width={50}
+          height={50}
+          alt={`${user.firstName} ${user.lastName}`}
+        />
+      ) : (
+        <div className={styles.logo}>
+          <span>{user.firstName[0]}</span>
+        </div>
+      )}
 
       <div className={styles.info}>
         <h3 className={styles.name}>

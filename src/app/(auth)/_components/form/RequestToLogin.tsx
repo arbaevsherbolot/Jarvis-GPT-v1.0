@@ -118,7 +118,6 @@ export default function RequestToLogin() {
   useEffect(() => {
     if (userInfo) {
       setAccessToLogin(true);
-      console.log(userInfo);
     } else setAccessToLogin(false);
   }, [userInfo]);
 
@@ -192,10 +191,14 @@ export default function RequestToLogin() {
               userInfo && (
                 <div className={styles.account}>
                   <div className={styles.logo}>
-                    <img
-                      src={`https://lh3.googleusercontent.com/a/ACg8ocIA_CIpKm_XHuDL0sfR4ZK9XMp_kGp9BGsqEj3NeV8j2w=s96-c`}
-                      alt={`${userInfo.firstName} ${userInfo.lastName}`}
-                    />
+                    {userInfo.photo ? (
+                      <img
+                        src={`${userInfo.photo}`}
+                        alt={`${userInfo.firstName} ${userInfo.lastName}`}
+                      />
+                    ) : (
+                      <span>{userInfo.firstName[0]}</span>
+                    )}
                   </div>
 
                   <div className={styles.info}>
