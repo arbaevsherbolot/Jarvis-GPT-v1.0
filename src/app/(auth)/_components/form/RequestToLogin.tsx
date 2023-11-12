@@ -212,7 +212,7 @@ export default function RequestToLogin() {
                   <CloseSvg
                     className={styles.icon}
                     onClick={handleReset}
-                    style={{ fontSize: "1.3rem", fill: "rgb(55, 53, 47)" }}
+                    style={{ fontSize: "1.1rem", fill: "#fff" }}
                   />
                 </div>
               )

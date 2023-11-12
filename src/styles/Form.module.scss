@@ -183,6 +183,16 @@
 
             cursor: pointer;
 
+            transition: 0.25s;
+
+            &:hover {
+              background: #0000004e;
+            }
+
+            &:active {
+              background: #00000022;
+            }
+
             @media (max-width: 985px) {
               cursor: default;
             }
@@ -271,7 +281,7 @@
           padding: 0.085rem;
           margin-left: auto;
 
-          background: #b4b4b43e;
+          background: #0000003e;
           border-radius: 50%;
 
           cursor: pointer;
@@ -279,11 +289,11 @@
           transition: 0.25s;
 
           &:hover {
-            background: #9a9a9a3e;
+            background: #0000004e;
           }
 
           &:active {
-            background: #6b6b6b3e;
+            background: #00000022;
           }
 
           @media (max-width: 985px) {
