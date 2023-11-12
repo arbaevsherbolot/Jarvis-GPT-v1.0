@@ -32,8 +32,8 @@ type User = {
   role: UserRole;
   requests: number;
   lastRequest?: Date | null;
-  firstName: string | null;
-  lastName: string | null;
+  firstName: string;
+  lastName: string;
   bio?: string | null;
   photo?: string | null;
   phone?: string | null;

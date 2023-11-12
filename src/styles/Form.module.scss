@@ -199,6 +199,87 @@
           gap: 0.3rem;
         }
       }
+
+      .account {
+        width: 100%;
+
+        padding: 0.45rem 0.55rem;
+
+        background: rgba(242, 241, 238, 0.6);
+        box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px inset;
+        border-radius: 2.875rem;
+
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+
+        margin-top: auto;
+
+        @media (max-width: 1430px) {
+          margin-top: 0;
+          margin-bottom: 1rem;
+        }
+
+        .logo {
+          width: 40px;
+          height: 40px;
+
+          border-radius: 50%;
+
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+          }
+        }
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          gap: 0.1rem;
+
+          .name {
+            margin-right: auto;
+
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgb(55, 53, 47);
+          }
+
+          .email {
+            font-size: 0.775rem;
+            font-weight: 400;
+            color: rgba(55, 53, 47, 0.484);
+          }
+        }
+
+        .icon {
+          padding: 0.085rem;
+          margin-left: auto;
+
+          background: #b4b4b43e;
+          border-radius: 50%;
+
+          cursor: pointer;
+
+          transition: 0.25s;
+
+          &:hover {
+            background: #9a9a9a3e;
+          }
+
+          &:active {
+            background: #6b6b6b3e;
+          }
+
+          @media (max-width: 985px) {
+            cursor: default;
+          }
+        }
+      }
     }
   }
 }
