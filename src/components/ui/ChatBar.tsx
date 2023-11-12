@@ -112,7 +112,7 @@ export default function ChatBar({ chats, user, session, v2 }: Props) {
       if (response.status === 200) {
         successNotification("Chat successfully deleted");
         setOpenDeleteChatModal(!openDeleteChatModal);
-        router.push(`/chat/${chats.length > 0 ? chats.length - 1 : ""}`);
+        router.push('/chat');
         router.refresh();
       }
     } catch (e) {
