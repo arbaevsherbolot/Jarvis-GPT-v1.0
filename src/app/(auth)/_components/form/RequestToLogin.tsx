@@ -13,7 +13,7 @@ import { getCookie } from "cookies-next";
 import axios from "axios";
 import Button from "@/components/ui/Button";
 import Google from "@/components/ui/Google";
-import { CloseSvg, MailSvg, WedevxSvg } from "@/assets/svg";
+import { CloseSvg, WedevxSvg } from "@/assets/svg";
 import styles from "@/styles/Form.module.scss";
 
 type UserInfo = {
@@ -48,17 +48,8 @@ export default function RequestToLogin() {
   const password = watch("password");
 
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const [showForm, setShowForm] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [accessToLogin, setAccessToLogin] = useState<boolean>(false);
-
-  const handleBack = () => {
-    router.back();
-  };
-
-  const handleShowForm = () => {
-    setShowForm(true);
-  };
 
   const handleReset = () => {
     setAccessToLogin(false);
@@ -137,38 +128,11 @@ export default function RequestToLogin() {
 
   return (
     <>
-      <div
-        className={
-          !showForm
-            ? styles.form_wrapper
-            : `${styles.form_wrapper} ${styles.active}`
-        }>
+      <div className={styles.form_wrapper}>
         <form className={styles.form} onSubmit={handleSubmit(handleSubmitForm)}>
-          {showForm && <h2 className={styles.title}>Log in</h2>}
+          <h2 className={styles.title}>Log in</h2>
 
-          {!showForm && <Google />}
-
-          {!showForm && (
-            <div className={styles.devider}>
-              <hr />
-              <span>or</span>
-              <hr />
-            </div>
-          )}
-
-          <div style={showForm ? { display: "none" } : { display: "block" }}>
-            <Button
-              load={false}
-              type="button"
-              style="white"
-              onClick={handleShowForm}>
-              <MailSvg className={styles.icon} /> Continue with Email
-            </Button>
-          </div>
-
-          <div
-            className={styles.inputs_container}
-            style={!showForm ? { display: "none" } : { display: "flex" }}>
+          <div className={styles.inputs_container}>
             {!accessToLogin ? (
               <div className={styles.input_container}>
                 <span className={styles.label}>Email address or name</span>
@@ -291,22 +255,24 @@ export default function RequestToLogin() {
               {!accessToLogin ? "Continue with email or name" : "Log in"}
             </Button>
 
-            {accessToLogin ? (
+            {accessToLogin && (
               <Link className={styles.link} href="/password/forgot">
                 Forgot password?
               </Link>
-            ) : (
-              <div className={styles.link} onClick={handleBack}>
-                See other auth services
-              </div>
             )}
           </div>
 
-          {showForm && (
-            <div className={styles.info}>
-              Powered by <WedevxSvg className={styles.logo} />
-            </div>
-          )}
+          <div className={styles.devider}>
+            <hr />
+            <span>or</span>
+            <hr />
+          </div>
+
+          <Google />
+
+          <div className={styles.info}>
+            Powered by <WedevxSvg className={styles.logo} />
+          </div>
         </form>
       </div>
     </>
