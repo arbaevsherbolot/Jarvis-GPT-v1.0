@@ -68,7 +68,8 @@ export default function ResetForm() {
 
       if (response.status === 200) {
         successNotification("Password updated successfully");
-        router.push("/login");
+        window.open("about:blank", "_self");
+        window.close();
       }
     } catch (e) {
       //@ts-ignore
@@ -185,7 +186,9 @@ export default function ResetForm() {
             </Link>
           </div>
 
-          <div className={styles.info}>Powered by <WedevxSvg className={styles.logo} /></div>
+          <div className={styles.info}>
+            Powered by <WedevxSvg className={styles.logo} />
+          </div>
         </form>
       </div>
     </>
