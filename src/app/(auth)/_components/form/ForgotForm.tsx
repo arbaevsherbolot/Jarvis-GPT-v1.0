@@ -91,7 +91,7 @@ export default function ForgotForm() {
                   }
                   placeholder="Enter your email address..."
                   {...register("email", {
-                    required: "Email required",
+                    required: "Email address required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: "Invalid Email",

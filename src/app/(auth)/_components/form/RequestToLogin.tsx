@@ -146,11 +146,11 @@ export default function RequestToLogin() {
                     }
                     placeholder="Enter your email address or name..."
                     {...register("emailOrName", {
-                      required: "Email or Name required",
+                      required: "Email address or name required",
                       pattern: {
                         value:
                           /^[\p{L}\d]+@[A-Za-z\d.-]+\.[A-Za-z]{2,}$|^[\p{L}\d\s]+$/u,
-                        message: "Invalid Email or Name",
+                        message: "Invalid email address or name",
                       },
                     })}
                   />
