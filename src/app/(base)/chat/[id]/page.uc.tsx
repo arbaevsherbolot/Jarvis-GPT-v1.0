@@ -7,7 +7,7 @@ import {
   successNotification,
 } from "@/lib/utils/notification";
 import { formatDate } from "@/lib/utils/format-date";
-import Logo from "@/components/ui/Logo";
+import Message from "@/components/ui/Message";
 import {
   CopySvg,
   LoadSvg,
@@ -79,6 +79,12 @@ export default function ChatClient({ chat, session, messages, user }: Props) {
       router.push("/404?message=Chat not found");
     } else window.document.title = chat.title;
   }, [router, session, chat]);
+
+  const sortedMessages = messages?.sort((a, b) => {
+    const dateA = new Date(a.createdAt).getTime();
+    const dateB = new Date(b.createdAt).getTime();
+    return dateB - dateA;
+  });
 
   const [transcript, setTranscript] = useState<string | null>(null);
   const [aiReply, setAiReply] = useState<string | null>(null);
@@ -254,33 +260,11 @@ export default function ChatClient({ chat, session, messages, user }: Props) {
         </button>
 
         <div className={styles.content}>
-          {transcript && (
-            <>
-              <h2 className={styles.label}>Youre transcript:</h2>
-
-              <span className={styles.transcript}>
-                {transcript}
-
-                <div className={styles.logo}>
-                  <Logo
-                    src={`${user?.photo}`}
-                    width={30}
-                    height={30}
-                    alt={`${user?.firstName} ${user?.lastName}`}
-                  />
-                </div>
-              </span>
-            </>
-          )}
-
           {aiReply && (
             <>
               <h2 className={styles.label}>AI reply:</h2>
 
-              <textarea
-                className={styles.ai_reply}
-                value={aiReply}
-                readOnly={true}></textarea>
+              <Message>{aiReply}</Message>
 
               <div className={styles.buttons}>
                 <button
@@ -303,6 +287,27 @@ export default function ChatClient({ chat, session, messages, user }: Props) {
                   </button>
                 )}
               </div>
+            </>
+          )}
+
+          {transcript && (
+            <>
+              <h2 className={styles.label}>Youre transcript:</h2>
+
+              <Message>{transcript}</Message>
+            </>
+          )}
+
+          {sortedMessages && sortedMessages?.length > 0 && (
+            <>
+              <h2 className={styles.label}>Conversation history:</h2>
+              {sortedMessages.map((message, idx) => (
+                <Message
+                  key={idx}
+                  label={message.ai ? "AI reply:" : "Youre transcript:"}>
+                  {message.text}
+                </Message>
+              ))}
             </>
           )}
 

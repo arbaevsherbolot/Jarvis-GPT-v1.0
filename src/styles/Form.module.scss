@@ -9,18 +9,18 @@
   align-items: center;
   justify-content: center;
 
-  background: #fffefc;
-  box-shadow: rgb(0 0 0 / 16%) 0px 24px 48px;
-  border-radius: 1rem;
+  //   background: #fffefc;
+  //   box-shadow: rgb(0 0 0 / 16%) 0px 24px 48px;
+  //   border-radius: 1rem;
 
-  transition: 0.25s;
+  //   transition: 0.25s;
 
   @media (max-width: 525px) {
     height: 100%;
     max-width: 100%;
 
-    border-radius: 0;
-    box-shadow: 0 0 0 transparent;
+    // border-radius: 0;
+    // box-shadow: 0 0 0 transparent;
   }
 
   .form {

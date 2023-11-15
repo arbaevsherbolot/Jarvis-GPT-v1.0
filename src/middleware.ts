@@ -34,6 +34,7 @@ export async function middleware(request: NextRequest) {
   const requestCookies = request.cookies;
   const token = await getToken({ req: request });
   const next = searchParams.get("next") || "/";
+  const os = request.headers.get("sec-ch-ua-platform");
 
   let user: User | undefined;
 

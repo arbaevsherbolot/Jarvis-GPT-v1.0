@@ -3,10 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
-import {
-  errorNotification,
-  successNotification,
-} from "@/lib/utils/notification";
+import { errorNotification } from "@/lib/utils/notification";
 import { GoogleSvg } from "@/assets/svg";
 import Button from "./Button";
 
@@ -21,10 +18,12 @@ export default function Google() {
     setLoading(true);
 
     try {
-      await signIn("google", {
-        redirect: false,
-        callbackUrl: "/",
-      });
+      // await signIn("google", {
+      //   redirect: false,
+      //   callbackUrl: "/",
+      // });
+
+      errorNotification("Google auth is temporarily disabled");
     } catch (e) {
       errorNotification("Something went wrong");
       console.error(e);
@@ -35,7 +34,11 @@ export default function Google() {
 
   return (
     <>
-      <Button load={loading} type="button" style="white" onClick={handleGoogleAuth}>
+      <Button
+        load={loading}
+        type="button"
+        style="white"
+        onClick={handleGoogleAuth}>
         <GoogleSvg style={{ fontSize: "1.3rem" }} />
         Continue with Google
       </Button>
