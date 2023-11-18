@@ -128,16 +128,18 @@ export default function ChatClient({ chat, session, messages, user }: Props) {
                 if (typeof reader.result === "string") {
                   setLoading(true);
 
-                  const base64Audio = reader.result.split(",")[1];
+                  // const base64Audio = reader.result.split(",")[1];
+                  const formData = new FormData();
+                  formData.append("file", audioBlob);
+
                   const response = await fetch(
                     `${process.env.NEXT_PUBLIC_API_URL}/api/speech-to-text/${chat?.id}`,
                     {
                       method: "POST",
                       headers: {
                         Authorization: `Bearer ${session}`,
-                        "Content-Type": "application/json",
                       },
-                      body: JSON.stringify({ audio: base64Audio }),
+                      body: formData,
                     }
                   );
 
